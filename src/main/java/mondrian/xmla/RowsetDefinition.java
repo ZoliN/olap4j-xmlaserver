@@ -4348,6 +4348,17 @@ TODO: see above
                 Column.NOT_RESTRICTION,
                 Column.OPTIONAL,
                 "Is hierarchy a parent.");
+        
+        private static final Column HierarchyOrigin =
+            new Column(
+                "HIERARCHY_ORIGIN",
+                Type.Short,
+                null,
+                Column.NOT_RESTRICTION,
+                Column.OPTIONAL,
+                "Hierarchy Origin.");
+
+
 
         public void populateImpl(
             XmlaResponse response,
@@ -4491,6 +4502,9 @@ TODO: see above
 
             // always true
             row.set(DimensionIsShared.name, true);
+            //System.out.println("levelcount: " + hierarchy.getLevels().size());
+            
+            row.set(HierarchyOrigin.name, (hierarchy.hasAll() && hierarchy.getLevels().size()==2) || (!hierarchy.hasAll() && hierarchy.getLevels().size()==1)?6:1);
 
             row.set(ParentChild.name, extra.isHierarchyParentChild(hierarchy));
             if (deep) {
