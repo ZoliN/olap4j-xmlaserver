@@ -4441,9 +4441,9 @@ TODO: see above
             List<Row> rows)
             throws XmlaException, SQLException
         {
-            if (hierarchy.getName().endsWith("$Parent")) {
+            if (hierarchy.getName().endsWith("$Parent") || !hierarchy.isVisible()) {
                 // We don't return generated Parent-Child
-                // hierarchies.
+                // or invisible hierarchies.
                 return;
             }
             final XmlaHandler.XmlaExtra extra =
